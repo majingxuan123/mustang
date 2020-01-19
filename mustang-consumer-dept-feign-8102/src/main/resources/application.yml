@@ -1,0 +1,48 @@
+server:
+  port: 8102
+  servlet:
+    #根目录 如果这里修改了   html中静态文件引用地址也要相应更改
+    context-path: /mustang/
+#让项目通过eureka客户端访问eureka服务端并且使用ribbon用作负载均衡
+eureka:
+  client:
+    #自己不注册进eureka
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/,http://eureka7003:7003/eureka/
+spring:
+  banner:
+    charset: UTF-8
+  jackson:
+    serialization:
+      indent_output: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+#自定义的
+http:
+  client:
+    #最大连接数
+    maxTotal: 100
+    #并发数
+    defaultMaxPerRoute: 20
+    #创建连接最长时间
+    connectTimeout: 1000
+    #取到连接最长时间
+    connectionRequestTimeout: 5000
+    #数据传输最长时间
+    socketTimeout: 10000
+    AfterInactivityTime: 10000
+#开启hystrix熔断服务
+feign:
+  hystrix:
+    enabled: true

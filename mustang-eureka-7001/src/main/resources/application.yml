@@ -1,0 +1,31 @@
+server:
+  port: 7001
+  servlet:
+#    context-path: /eureka/
+spring:
+  application:
+    name: mustang-eureka
+  security:
+    user:
+      name: admin
+      password: admin
+eureka:
+  instance:
+    #eureka服务端的实例名称  修改hosts文件
+    hostname: eureka7001
+#    prefer-ip-address: true
+    instance-id: eureka-7001
+    appname: eurekaservice
+  client:
+    #向注册中心注册自己。 单机情况false
+    register-with-eureka: true
+    #是否需要去检索服务、单机情况只负责维护实例设置为false
+    fetch-registry: true
+    serviceurl:
+      #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      #设置集群  如果是7001的文件就配置其他两个集群项目
+      defaultZone: http://admin:admin@eureka7002:7002/eureka/,http://admin:admin@eureka7003:7003/eureka/
+
+
+

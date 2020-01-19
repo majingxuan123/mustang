@@ -1,0 +1,27 @@
+server:
+  port: 9000
+#让项目通过eureka客户端访问eureka服务端并且使用ribbon用作负载均衡
+eureka:
+  client:
+    #自己不注册进eureka
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/,http://eureka7003:7003/eureka/
+spring:
+  banner:
+    charset: UTF-8
+#自定义的
+http:
+  client:
+    #最大连接数
+    maxTotal: 100
+    #并发数
+    defaultMaxPerRoute: 20
+    #创建连接最长时间
+    connectTimeout: 1000
+    #取到连接最长时间
+    connectionRequestTimeout: 5000
+    #数据传输最长时间
+    socketTimeout: 10000
+    AfterInactivityTime: 10000
+#开启hystrix熔断服务

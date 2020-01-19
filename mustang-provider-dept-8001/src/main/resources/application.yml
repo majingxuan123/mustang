@@ -1,0 +1,95 @@
+#服务器
+server:
+  port: 8001
+  tomcat:
+    #*.jar
+    additional-tld-skip-patterns: .jar
+    max-threads: 100
+    uri-encoding: UTF-8
+  servlet:
+    #根目录 如果这里修改了   html中静态文件引用地址也要相应更改
+    context-path: /mustang/
+mybatis:
+  # mybatis配置文件所在路径
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  # 所有Entity别名类所在包
+  type-aliases-package: com.springcloudstudy.mustangbase.entities
+  mapper-locations:
+    # mapper映射文件
+    - classpath:mybatis/mapper/**/*.xml
+spring:
+  banner:
+    charset: UTF-8
+  application:
+    #在eureka上的名字 会全大写
+    name: MUSTANG-DEPT-PROVIDER
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动包
+    #driver-class-name: org.gjt.mm.mysql.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.106.178:3306/MUSTANGDB01              # 数据库名称
+    username: mustang
+    password: mustang
+    dbcp2:
+      # 数据库连接池的最小维持连接数
+      min-idle: 5
+      # 初始化连接数
+      initial-size: 5
+      # 最大连接数
+      max-total: 5
+      # 等待连接获取的最大超时时间
+      max-wait-millis: 200
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl.auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show: true
+  jackson:
+    serialization:
+      indent_output: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+#自定义的httpclient客户端
+http:
+  client:
+    #最大连接数
+    maxTotal: 100
+    #并发数
+    defaultMaxPerRoute: 20
+    #创建连接最长时间
+    connectTimeout: 1000
+    #取到连接最长时间
+    connectionRequestTimeout: 5000
+    #数据传输最长时间
+    socketTimeout: 10000
+    AfterInactivityTime: 10000
+#客户端注册进入eureka服务列表中
+eureka:
+  client:
+    service-url:
+      #eureka 服务端地址  单机
+#      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001:7001/eureka,http://eureka7002:7002/eureka,http://eureka7003:7003/eureka
+  instance:
+    instance-id: mustang-provider8001
+    #访问路径可以显示IP地址
+    prefer-ip-address: true
+#这里配置一些相关信息 在eureka上查看注册列表详细可以看到
+info:
+  app.name: mustang-springcloudstudy
+  company.name: majx
+  build.artifactId: @project.artifactId@
+  build.version: @project.version@

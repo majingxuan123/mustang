@@ -1,0 +1,13 @@
+http:
+  client:
+    #最大连接数
+    maxTotal: 100
+    #并发数
+    defaultMaxPerRoute: 20
+    #创建连接最长时间
+    connectTimeout: 1000
+    #取到连接最长时间
+    connectionRequestTimeout: 5000
+    #数据传输最长时间
+    socketTimeout: 10000
+    AfterInactivityTime: 10000
